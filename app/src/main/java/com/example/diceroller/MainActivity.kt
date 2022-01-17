@@ -2,8 +2,7 @@ package com.example.diceroller
 
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
@@ -11,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val rollButton: Button = findViewById(R.id.btnRoll)
-
+        rollDice()
         rollButton.setOnClickListener { rollDice() }
     }
 
@@ -19,13 +18,21 @@ class MainActivity : AppCompatActivity() {
         val luckyNumber = 4
         val dice = Dice(6)
         val diceRoll = dice.roll()
-        val resultTextView: TextView = findViewById(R.id.textView)
-        resultTextView.text = diceRoll.toString()
+        val diceImage: ImageView = findViewById(R.id.imgDice)
 
-        when(diceRoll){
-            luckyNumber -> Toast.makeText(this, "You won", Toast.LENGTH_SHORT).show()
-            1 -> Toast.makeText(this, "Try again", Toast.LENGTH_SHORT).show()
+
+        val drawableResource = when(diceRoll) {
+            1 -> R.drawable.dice_1
+            2 -> R.drawable.dice_2
+            3 -> R.drawable.dice_3
+            4 -> R.drawable.dice_4
+            5 -> R.drawable.dice_5
+            else -> R.drawable.dice_6
+
         }
+
+        diceImage.setImageResource(drawableResource)
+        diceImage.contentDescription = diceRoll.toString()
     }
 }
 
